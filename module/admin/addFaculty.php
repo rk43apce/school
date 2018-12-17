@@ -25,9 +25,6 @@ if (Input::exists()) {
     $f_doj  = Input::get('f_doj');
     $id_admin  = Session::get('user_id');
 
-
-
-
      $facultyData = array("id_admin"=>$id_admin, "f_name"=>$f_name, "f_email"=>$f_email, "f_phoneNo"=>$f_phoneNo, "f_dob"=>$f_dob, "f_sex"=>$f_sex, "f_experience"=>$f_experience, "f_pesAddress"=>$f_pesAddress, "f_qualification"=>$f_qualification, "f_doj"=>$f_doj);
    
 
@@ -61,7 +58,13 @@ if (Input::exists()) {
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
-
+    <style type="text/css">
+        .card {
+            max-width: 786px;
+            margin-left: auto;
+            margin-right:  auto;
+        }
+    </style>
 
 </head>
 
@@ -78,83 +81,96 @@ if (Input::exists()) {
            <?php include './include/topNavbar.php';?>
             
             <div class="container">
-                <div class="datatable">
-                    <h2>Add Faculty</h2>         
-                    <div class="line"></div>
-                    <div class="row">
-                        <div class="col-12">
-                            <form  action="" method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Add Faculty</h3>         
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form  action="" method="post">
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Full Name</label>
+                                        <div class="col-sm-9">                                  
+                                         <input type="text" name="f_name" class="form-control " placeholder="Enter first name" autofocus="" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Email Id</label>
+                                        <div class="col-sm-9">                                  
+                                         <input type="text" name="f_email" class="form-control "  placeholder="Enter emaid id" required>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label> Full Name </label>
-                                    <input type="text" name="f_name" class="form-control " placeholder="Enter first name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label> Email Id </label>
-                                    <input type="text" name="f_email" class="form-control "  placeholder="Enter emaid id" required>
-                                </div>
-                                <div class="form-group">
-                                    <label> Phone No </label>
-                                    <input type="text" name="f_phoneNo" class="form-control "  placeholder="Enter phone no" required>
-                                </div>
+                                     <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Phone No</label>
+                                        <div class="col-sm-9">                                  
+                                       <input type="text" name="f_phoneNo" class="form-control "  placeholder="Enter phone no" required>
+                                        </div>
+                                    </div>
+                                                                   
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">                                  
+                                       
+                                            <label>Gender </label>  
+                                            <label class="control control--radio">Male
+                                            <input type="radio" name="f_sex" value="Male"checked="">
+                                            <div class="control__indicator"></div>
+                                            </label>
+                                            <label class="control control--radio">Female
+                                            <input type="radio" name="f_sex"  value="Female">
+                                            <div class="control__indicator"></div>
+                                            </label>
+                                    
+                                        </div>
+                                    </div>
 
-                                 <div class="form-group">                                   
-                                    <div class="control-group">
-                                        <label>Gender </label>  
-                                        <label class="control control--radio">Male
-                                        <input type="radio" name="f_sex" value="Male"checked="">
-                                        <div class="control__indicator"></div>
-                                        </label>
-                                        <label class="control control--radio">Female
-                                        <input type="radio" name="f_sex"  value="Female">
-                                        <div class="control__indicator"></div>
-                                        </label>
-                                    </div>                                                                      
-                                </div>
+                                     <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Qualification</label>
+                                        <div class="col-sm-9">                                  
+                                        <input type="text" name="f_qualification" class="form-control " placeholder="Qualification" required=""> 
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label"> Date of Birth</label>
+                                        <div class="col-sm-4">                                  
+                                       <input type="date" name="f_dob" class="form-control "  placeholder="DOB(Y-m-d)" required>
+                                        </div>
+                                    </div>
 
-                               
-                                <div class="form-group">
-                                    <label> Qualification </label>
-                                    <input type="text" name="f_qualification" class="form-control "  value="Enter qualification" > 
-                                </div>
+                                     <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label"> Year of Experience </label>
+                                        <div class="col-sm-2">                                  
+                                       <input type="number" name="f_experience" class="form-control "  placeholder="Ex 5 " required>
+                                        </div>
+                                    </div>
 
-                                  <div class="form-group">
-                                    <label> Date of Birth </label>
-                                    <input type="date" name="f_dob" class="form-control "  placeholder="Enter DOB(Y-m-d)" required>
-                                </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Permanent address</label>
+                                        <div class="col-sm-9">                                  
+                                      <textarea name="f_pesAddress" class="form-control" placeholder="Enter present address"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Permanent address</label>
+                                        <div class="col-sm-9">                                  
+                                        <textarea name="f_pemAddress" class="form-control" placeholder="Enter permanent address"></textarea>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label> Date of Joining </label>
-                                    <input type="date" name="f_doj" class="form-control "  placeholder="Enter  joining(Y-m-d)" required>
-                                </div>
-
-                                 <div class="form-group">
-                                    <label> Year of Experience </label>
-                                    <input type="number" name="f_experience" class="form-control "  placeholder="Enter experience" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label> Present address </label>
-                                    <textarea name="f_pesAddress" class="form-control" placeholder="Enter present address"></textarea>
-                                   
-                                </div>
-
-                                <div class="form-group">
-                                    <label> Permanent address </label>
-                                    <textarea name="f_pemAddress" class="form-control" placeholder="Enter permanent address"></textarea>
-                                
-                                </div>
-
-                                                           
-                                <div class="form-group">                                           
-                                    <button type="submit" name="submit" value="addFaculty" class="btn btn-primary">Add Faculty</button>
-                                    <a href="./manageFaculty.php" class="btn btn-link">Back to Faculty Dashboard</a>
-                                </div>                                  
-                               
-                            </form>
-                        </div>                            
-                    </div> 
+                                     <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">                                  
+                                         <button type="submit" name="submit" value="addFaculty" class="btn btn-primary">Add Faculty</button>
+                                      
+                                        </div>
+                                    </div>
+                                                               
+                    
+                                </form>
+                            </div>                            
+                        </div> 
+                    </div>
                 </div> 
             </div>
         </div>

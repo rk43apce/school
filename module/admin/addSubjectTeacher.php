@@ -1,46 +1,34 @@
-	
 <?php
 error_reporting(E_ALL); 
- ini_set('display_errors', 1);
-
+ini_set('display_errors', 1);
 
 require_once '../core/init.php';
 
-
 if (Input::exists('post')) {
 
-    
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
+	$stnd_code = Input::get('stnd_code');  
+	$subject_id = Input::get('subject_id');  
+	$facultyId = Input::get('facultyId');
 
 
+if (!empty($stnd_code) && !empty($subject_id) && !empty($facultyId)) {
+	
+	$teaches = new Teaches(); 
 
 
+	if ($teaches->addSubjectTeacher($stnd_code, $subject_id, $facultyId)) {
 
-    $stnd_code = Input::get('stnd_code');  
-    $subject_id = Input::get('subject_id');  
-    $facultyID = Input::get('facultyID');
-    
+	Redirect::to('manageCourse.php');
 
-    $teaches = new Teaches(); //Current
+	} else {
 
+	Redirect::to('viewCourse.php?classId='.$stnd_code);
 
-    $resultteaches =   $teaches->addSubjectTeacher($stnd_code, $subject_id, $facultyID);
+	}
+} else {
 
-    var_dump($resultteaches);
-
-
-
-			if(Session::exists('errorMsg')) {
-			echo '<p>' . Session::flash('errorMsg'). '</p>';
+	Redirect::to('manageCourse.php');
 }
 
 
-
-
-
-
 }
-
-?>

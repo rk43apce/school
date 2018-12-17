@@ -1,40 +1,6 @@
-
 <?php
 
-
 require_once '../core/init.php';
-
-
-
-
-if(Input::exists('post')) {
-        # code...
-
-    $studentAdmission =  new Admission();
-
-    $studentId = Input::get('studentId');
-    $subjects = Input::get('subjects');
-
-
-    foreach ($subjects as $subject_id) {
-            
-       
-        $isStudentSubjectInfoAdd =  $studentAdmission->studentSubject($studentId, $subject_id);
-
-    }
-
-
-    if ($isStudentSubjectInfoAdd) {
-        
-
-
-        Redirect::to('studentAccount.php?studentId='.$studentId);
-
-    }
-
-
-}   
-
 
 if(!Input::exists('get')) {
 
@@ -44,136 +10,111 @@ if(!Input::exists('get')) {
 }
 
 
-    $classId = Input::get('classId');
+$classId = Input::get('classId');
+$studentId = Input::get('studentId');
 
-    $studentId = Input::get('studentId');
+$standard = new Standard();
 
-       
-    $course = new Course();
+$allSubjectsData = $standard->getSubject(); // getting all subject list 
 
-    $classes =    $course->getClassById($classId);
+$course = new Course();
 
-    if($courseSubjects = $course->getCourseSubjects($classId)){
+$classes =  $course->getClassById($classId);
 
+if($courseSubjects = $course->getCourseSubjects($classId)){
 
+    $arrayCourseSubjects = array();
 
-    }   
+    foreach ($courseSubjects as $key => $value) {
+
+        array_push($arrayCourseSubjects, $value['subjectId']);
+        
+    }
+
+}   
 
 ?>
 
-
 <!DOCTYPE html>
 <html>
-
 <head>
-
-<?php include './include/cssLink.php' ?>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css"/>
+    <?php include './include/cssLink.php';?>
 </head>
-
 <body>
-
     <div class="wrapper">
-        <!-- Sidebar Holder -->
         <?php include './include/defaultNavbar.php';?>
-
-        <!-- Page Content Holder -->
         <div id="content">
-
-            <!-- topnavbar Holder -->
-           <?php include './include/topNavbar.php';?>
-            
+            <?php include './include/topNavbar.php';?>
             <div class="container">
                 <div class="card">
-                    <h5><?php echo $classes['className']; ?></h5> 
-                    <span><a href="./editCourse" class="btn btn-link"> Edit Course </a></span>
-                              
-                    <div class="line"></div>  
 
-                    <form action="" method="post">                         
-                        <span class="btn btn-info float-right"  id="selectAll">Select all </span>  
-                        <table id="subjecTable" class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>    
-                                    <th>Subject</th>                                
-                                     <th>Choose Subjects</th> 
-                                </tr>
-                            </thead>                    
-                            <tbody>    
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item ">Course</li> 
+                        <li class="breadcrumb-item "><?php echo $classes['className']; ?></li> 
+                        <li class="breadcrumb-item ">Subjects</li>
+                        <li class="breadcrumb-item ">Edit Subjects</li>
+                        <li class="breadcrumb-item "></li>  
+                    </ol> 
 
-                                <?php  
+                    <div class="line"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form  action="./addStudentSubjects.php" method="post"> 
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">Class</label>
+                                    <div class="col-sm-6">
 
-                                $serialNo = 1;
+                                        <input type="text" class="from  form-control" value="<?php echo $classes['className']; ?>" disabled="">   
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-3 col-form-label">Subjects </label>
+                                   
+                                    <div class="col-sm-6">
+                                        <select name="subjects[]" class="ui fluid search dropdown" multiple="" required="">
+                                            <option value=""> Choose subjects (Mutiple) </option>
+                                            <?php  foreach ($allSubjectsData as $key => $subject) { ?>
 
-                                foreach ($courseSubjects as $key => $subject) { ?>
+                                                <option  value="<?php echo $subject['subjectId']; ?>"
 
-                                <tr>
-                                <td><?php echo $serialNo;?></td>
-                                <td><?php echo $subject['subjectName'];?></td>
-                                 <td><input type="checkbox" name="subjects[]" value="<?php echo $subject['subjectId'];?>"></td>
-                                                                                      
-                                </tr>
+                                                <?php if (!empty($arrayCourseSubjects)) {
+                                                    echo  (in_array($subject['subjectId'], $arrayCourseSubjects)) ? "selected" : "" ;
+                                                } ?>
 
-                                <?php  $serialNo++;  }  ?>     
-                            </tbody> 
-                        </table> 
+                                                >
+                                                <?php echo escape($subject['subjectName']); ?>
 
-                        <input type="hidden" name="studentId" value="<?php echo $studentId;?>">
+                                                </option>
 
-                        <button class="btn btn-primary" type="submit">Save & Next</button>
+                                            <?php  }  ?> 
+                                        </select>    
+                                    </div>
+                                </div>
 
-                    </form>
-                         
-
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">   
+                                             <input type="hidden" name="token" value="<?php echo Token::generate('addNewCourse');?>">  
+                                            <input type="hidden" name="studentId" value="<?php echo $studentId;?>">
+                                            <button class="btn btn-primary" type="submit">Save student subject</button>
+                                        </div> 
+                                    </div>
+                                </div>  
+                            </form>
+                        </div>                            
+                    </div> 
                 </div> 
             </div>
         </div>
     </div>
 
-    <?php include  './include/footer.php' ?>   
-
-
-    <script type="text/javascript">
-        
-        $(document).ready(function () { 
-            var oTable = $('#subjecTable').dataTable({
-            stateSave: true
-            });
-
-            var allPages = oTable.fnGetNodes();
-
-            $('body').on('click', '#selectAll', function () {
-
-
-                if ($(this).hasClass('allChecked')) {
-                    $('input[type="checkbox"]', allPages).prop('checked', false);
-                } else {
-                    $('input[type="checkbox"]', allPages).prop('checked', true);
-                }
-                $(this).toggleClass('allChecked');
-            })
-        });
-
-        $("#selectSubjectForm").submit(function(){
-
-            var checked = $(" input:checked").length > 0;
-
-            if (!checked){
-
-                alert("Please select at least one subject");
-
-                return false;
-
-            } else {
-
-                return confirm('Are you sure you want to save this thing into the database?');
-
-            }
-        });
-
+    <?php include 'include/footer.php'?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown')
+        .dropdown();
     </script>
-
 </body>
-
 </html>

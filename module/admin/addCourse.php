@@ -39,57 +39,60 @@ if (Input::exists('post')) {
             <?php include './include/topNavbar.php';?>
             <div class="container">
                 <div class="card">
-                    <h2>Create Course</h2>
-                    <span class="text-danger">Note: Add subjects for each and every classes</span>         
-                    <div class="line"></div>
-                    <div class="row">
-                        <div class="col-12">
-                            <form  action="" method="post"> 
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-3 col-form-label">Class</label>
-                                    <div class="col-sm-6">
-                                        <select name="classId" class="form form-control"  required="">
-                                            <option value=""> Select Classs </option>
-                                            <?php  
-                                            foreach ($classes as $key => $classe) { ?>
+                    <div class="card-body">
+                        <h3>Create Course</h3>
+                        <span class="text-danger">Note: Add subjects for each and every classes</span>         
+                        <div class="line"></div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form  action="" method="post"> 
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Class</label>
+                                        <div class="col-sm-6">
+                                            <select name="classId" class="form form-control"  required="">
+                                                <option value=""> Select Classs </option>
+                                                <?php  
+                                                foreach ($classes as $key => $classe) { ?>
 
-                                                <option  value="<?php echo $classe['classId']; ?>"><?php echo escape($classe['className']); ?></option>
+                                                    <option  value="<?php echo $classe['classId']; ?>"><?php echo escape($classe['className']); ?></option>
 
-                                            <?php  } ?>   
-                                        </select>    
+                                                <?php  } ?>   
+                                            </select>    
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-3 col-form-label">Subjects </label>
-                                    <div class="col-sm-6">
-                                        <select name="subjects[]" class="ui fluid search dropdown" multiple="" required="">
-                                            <option value=""> Choose subjects (Mutiple) </option>
-                                            <?php  
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label">Subjects </label>
+                                        <div class="col-sm-6">
+                                            <select name="subjects[]" class="ui fluid search dropdown" multiple="" required="">
+                                                <option value=""> Choose subjects (Mutiple) </option>
+                                                <?php  
 
-                                            foreach ($subjectsData as $key => $subject) { ?>
+                                                foreach ($subjectsData as $key => $subject) { ?>
 
-                                            <option  value="<?php echo $subject['subjectId']; ?>"><?php echo escape($subject['subjectName']); ?></option>
+                                                <option  value="<?php echo $subject['subjectId']; ?>"><?php echo escape($subject['subjectName']); ?></option>
 
-                                            <?php  }  ?> 
-                                        </select>    
+                                                <?php  }  ?> 
+                                            </select>    
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-3 col-form-label"></label>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">   
-                                            <input type="hidden" name="token" value="<?php echo Token::generate('addNewCourse');?>">                                        
-                                            <button type="submit" name="createCourse" value="createCourse" class="btn btn-primary">Create Course</button>
-                                        </div> 
-                                    </div>
-                                </div>  
-                            </form>
-                        </div>                            
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">   
+                                                <input type="hidden" name="token" value="<?php echo Token::generate('addNewCourse');?>">                                        
+                                                <button type="submit" name="createCourse" value="createCourse" class="btn btn-primary">Create Course</button>
+                                            </div> 
+                                        </div>
+                                    </div>  
+                                </form>
+                            </div>                            
+                        </div>
                     </div> 
                 </div> 
                 <br>
                 <br>
-                 <div class="card">                 
+                 <div class="card">      
+                 <div class="card-body">           
                     <h2>Available Course</h2>
                           
                     <div class="line"></div>
@@ -102,32 +105,37 @@ if (Input::exists('post')) {
                         </thead>                    
                         <tbody>  
         
-                        <?php 
+                        <?php   
 
                             $availableCoursesData = $course->availableCourses();
 
-                            $count=1;
-
-                            foreach ($availableCoursesData as $key => $courseData) {                 
-
-                                ?>
-
+                            
+                            if ($availableCoursesData) {
+                           
+                                $count=1;
+                                foreach ($availableCoursesData as $key => $courseData) {  ?>
                                 <tr>                                    
-                                    <td><?php echo $count; ?></td>
-                                    <td><?php echo $courseData['className']; ?></td>                                    
+                                <td><?php echo $count; ?></td>
+                                <td><?php echo $courseData['className']; ?></td>                                    
                                 </tr>                      
-                            <?php
+                                <?php $count++; }
 
-                            $count++;
+                            }else {
 
+                                ?>  
+
+                                <tr>
+                                    <td colspan="2" align="center"> No course found</td>
+                                </tr>
+
+                                <?php
                             }
-
-
+                         
                          ?>
                        
                         </tbody> 
                     </table> 
-
+                    </div> 
                 </div> 
             </div>
             

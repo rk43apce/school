@@ -25,14 +25,7 @@
 			<a href="#TeacherSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Faculty</a>
 			<ul class="collapse list-unstyled" id="TeacherSubmenu">
 				<li>
-					<a href="./addClass.php">Faculty Dashboard</a>
-				</li>
-
-				<li>
-					<a href="./addFaculty.php">Add Faculty</a>
-				</li>
-				<li>
-					<a href="./addFaculty.php">Add Teacher</a>
+					<a href="./manageFaculty.php">Faculty Dashboard</a>
 				</li>
 
 			</ul>
@@ -40,23 +33,19 @@
 		<li>
 			<a href="#CourseSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Course</a>
 			<ul class="collapse list-unstyled" id="CourseSubmenu">
-				<li>
+				<!-- <li>
 					<a href="./manageCourse.php">Add Class</a>
-				</li> 
+				</li>  -->
 				<li>
 					<a href="./manageCourse.php">Manage Course</a>
 				</li> 
-				<li>
-					<a href="./viewCourse.php">View Course</a>
-				</li>               
+				             
 			</ul>
 		</li>
-		<li>
+		<!-- <li>
 			<a href="#FeesDetails" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Fees Details</a>
 			<ul class="collapse list-unstyled" id="FeesDetails">
-				<li>
-					<a href="./addConcession.php">Add Concession</a>
-				</li> 
+				
 				<li>
 					<a href="./makePayment.php">Make Payment</a>
 				</li> 
@@ -68,9 +57,7 @@
 				</li>               
 			</ul>
 		</li>
-		<li>
-			<a href="setFees.php">Set Fees</a>
-		</li>
+	
 		<li>
 			<a href="#paymentSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Payment</a>
 			<ul class="collapse list-unstyled" id="paymentSubmenu">
@@ -87,7 +74,7 @@
 		</li>
 		<li>
 			<a href="report.php">Report</a>
-		</li>       
+		</li>  -->      
 	</ul>
 
 	<ul class="list-unstyled CTAs">

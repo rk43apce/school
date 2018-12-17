@@ -45,29 +45,43 @@ class Course  {
 
         $result = $this->db->querySelect($sql);
 
-        if (!$this->db->checkResultCountZero($result)) {
+        if (empty($result)) {
+           
+           return false;
+        }
 
-        return  $this->db->processRowSet($result);
+        if ($this->db->checkResultCountZero($result)) {
+
+            return false;
 
         }  
+
+        return  $this->db->processRowSet($result);
 
     }
 
 
-         public function getCourseSubjects($classId)
+     public function getCourseSubjects($classId)
     {   
 
-          $adminId =  Session::get('user_id');
+      $adminId =  Session::get('user_id');
 
-        $sql = " SELECT * FROM course INNER JOIN subject ON subject.subjectId = course.subjectId WHERE classId = '$classId' AND isSubjectDrop ='No'  and admin_Id = '$adminId'";
+    $sql = " SELECT * FROM course INNER JOIN subject ON subject.subjectId = course.subjectId WHERE classId = '$classId' AND isSubjectDrop ='No'  and admin_Id = '$adminId'";
 
-        $result = $this->db->querySelect($sql);
+    $result = $this->db->querySelect($sql);
 
-        if (!$this->db->checkResultCountZero($result)) {
+    if (empty($result)) {
+        # code...
+        return false;
+    }
 
-        return  $this->db->processRowSet($result);
+    if ($this->db->checkResultCountZero($result)) {
 
-        }  
+        return false;
+
+    }  
+
+    return  $this->db->processRowSet($result);
 
     }
 
@@ -76,15 +90,15 @@ class Course  {
     {   
 
 
-$sql = " SELECT * FROM class  WHERE classId = '$classId' ";
+        $sql = " SELECT * FROM class  WHERE classId = '$classId' ";
 
-$result = $this->db->querySelect($sql);
+        $result = $this->db->querySelect($sql);
 
-if ($this->db->isResultCountOne($result)) {
+        if ($this->db->isResultCountOne($result)) {
 
-return  $this->db->processRowSet($result, true);
+        return  $this->db->processRowSet($result, true);
 
-}  
+        }  
 
     }
 

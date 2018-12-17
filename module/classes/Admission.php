@@ -19,11 +19,11 @@ class Admission {
 	}
 
 
-	public function studentSubject($student_Id, $subject_Id)
+	public function studentSubject($studentId, $subject_id)
 	{
 		# code...
 
-		return	$this->_db->addStudentSubjectInfo($student_Id, $subject_Id);
+		return	$this->_db->addStudentSubjectInfo($studentId, $subject_id);
 	}
 
 

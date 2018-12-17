@@ -679,26 +679,19 @@ public function checkExits($stnd_code, $subject_id) {
    $sql = "SELECT * FROM teaches WHERE  stnd_code = '$stnd_code' AND  sub_id = '$subject_id' "; // Check entry 
 
 
-   if($result = $this->mysqli->query($sql)){
+        $result = $this->mysqli->query($sql);
 
-        if($result->num_rows === 0){ //  Check number  
-        	
-        	return true;     
-
-        }else{
-
-        	Session::put('errorMsg', 'Same entry already exits');            
-
-        	return false;
+        if (empty($result)) {
+            # code...
+            return false;
         }
 
-    } else{
+        if (!$result->num_rows == 1) {
+            
+            return false;
+        }
 
-    	Session::put('errorMsg', 'Sorry!, Please try again!');
-
-    	return false;
-    } 
-
+        return true;
 }   
 
 
@@ -708,51 +701,24 @@ public function checkExits($stnd_code, $subject_id) {
 
 public function insertSubjectTeacher($stnd_code, $subject_id, $facultyID) {
 
+	$sql = "INSERT INTO teaches (f_id, stnd_code, sub_id) VALUES ($facultyID, $stnd_code, $subject_id)";
 
-
-	$result =   $this->checkExits($stnd_code, $subject_id);
-
-	if ($result ) {
-            # code...
-
-		$sql = "INSERT INTO teaches (f_id, stnd_code, sub_id) VALUES (?, ?, ?)";
-		
-		if($stmt = $this->mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-			$stmt->bind_param("sss", $facultyID, $stnd_code, $subject_id);
-			
-            // Attempt to execute the prepared statement
-			if($stmt->execute()){
-
-				Session::put('errorMsg', 'Teacher successfully assign!');
-				
-				return true;
-
-			} else{
-
-				Session::put('errorMsg', 'Same entry already exits');
-
-				return false; 
-			}
-		} 
-
-		Session::put('errorMsg', 'Same entry already exits');            
-
-		return false;  
-	}      
-
-	Session::put('errorMsg', 'Same entry already exits');            
-
-	return false;      
-
+    return  $this->mysqli->query($sql);
 }   
 
+
+public function updateTeacher($stnd_code, $subject_id, $facultyID) {
+
+    $sql = " UPDATE teaches SET f_id = '$facultyID'  WHERE stnd_code = '$stnd_code'  AND   sub_id  = '$subject_id' ";
+
+    return $this->mysqli->query($sql);
+}   
 
 
 public function getSubjectTeacher($stnd_code, $subject_id) {
     # code...
 
-	$sql = "SELECT f_name FROM `teaches` INNER JOIN subject on subject.sub_id = teaches.sub_id INNER JOIN faculty on faculty.f_id = teaches.f_id INNER JOIN standard on standard.stnd_code = teaches.stnd_code WHERE teaches.stnd_code = '$stnd_code' and teaches.sub_id = '$subject_id'";
+ 	$sql = "SELECT faculty.f_id, f_name FROM `teaches` INNER JOIN subject on subject.subjectId = teaches.sub_id INNER JOIN faculty on faculty.f_id = teaches.f_id INNER JOIN class on class.classId = teaches.stnd_code WHERE teaches.stnd_code = '$stnd_code' and teaches.sub_id = '$subject_id'";
 	
 
        // echo $sql; // check sql

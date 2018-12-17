@@ -46,7 +46,7 @@ if ($studentData = $student->getStudentAccountById($studentId)) {
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+
    <?php include './include/cssLink.php' ?> 
 </head>
 
@@ -89,7 +89,7 @@ if ($studentData = $student->getStudentAccountById($studentId)) {
 
                     <div class="card-body">
                         <h3><?php echo $s_fullname; ?></h3>                      
-                         <p>Personal Details</p>
+                         <p>Personal Details <a class="btn-link" href="./updateStudentProfile.php?studentId=<?php  echo $studentId;?>"> Profile</a></p>
                            <div class="line"></div>  
                         <table  class="table table-striped table-bordered" style="width:100%">
                             <thead>
@@ -122,7 +122,21 @@ if ($studentData = $student->getStudentAccountById($studentId)) {
 
                                            
                         
-                         <p>Subject Details</p>
+                         <p>Subject Details
+                            <?php 
+
+                            if (!empty($studentSubjectDaTa)) {
+                               ?>
+
+                                <span><a class="btn-link" href="editStudentsubjects.php?studentId=<?php echo $studentId; ?>">Edit Subject</a></span>
+                               <?php
+                            }
+
+                            ?>
+                           
+
+                        </p>
+
                           <div class="line"></div>
                         <table id="" class="table table-striped table-bordered" style="width:100%">
                             <thead>

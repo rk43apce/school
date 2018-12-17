@@ -91,6 +91,8 @@ public function getStudentSubject($s_registrationNo)
 
 }
 
+
+
 public function getAllStudent()
 {   
         # code...
@@ -102,11 +104,16 @@ public function getAllStudent()
 
     $result = $this->_db->querySelect($sql);
 
-    if (!$this->_db->isResultCountZero($result)) {
+    if (empty($result)) {
+        # code...
+        return false;
+    }
 
-        return  $this->_db->processRowSet($result);
+    if ($this->_db->isResultCountZero($result)) {        
 
+        return false;
     }  
+    return  $this->_db->processRowSet($result);
 }
 
 
@@ -127,6 +134,7 @@ public function getStudentAccountById($s_registrationNo)
     return  $this->_db->processRowSet($result, true);      
 
 }
+
 
 
 public function getStudentFeePaymentHistory ($s_registrationNo)

@@ -1,38 +1,16 @@
-	
 <?php
-error_reporting(E_ALL); 
- ini_set('display_errors', 1);
-
 require_once '../core/init.php';
-
 
 if (Input::exists('post')) {
 
-$stnd_code = Input::get('stnd_code');
-$sub_name = Input::get('sub_name');
-$subject_id = Input::get('subject_id');
-$course_name = Input::get('course_name');
+    $classId = Input::get('classId');
+    $subjectId = Input::get('subjectId');
 
-$faculty = new Faculty(); // faculty class 
+    $faculty = new Faculty(); 
 
-if($resultFaculty = $faculty->viewFaculty()){   // getting faculty ingres_result_seek(result, position)
+    $resultFaculty = $faculty->viewFaculty();      
 
-        if(Session::exists('errorMsg')) {
-    echo '<p>' . Session::flash('errorMsg'). '</p>';
-}       
-      
-
-    }
-
-}else{
-
-           if(Session::exists('errorMsg')) {
-    echo '<p>' . Session::flash('errorMsg'). '</p>';
 }
-
-    //Redirect::to('manageCourse.php');
-}
-
 
 ?>
 
@@ -53,81 +31,52 @@ if($resultFaculty = $faculty->viewFaculty()){   // getting faculty ingres_result
     <link rel="stylesheet" href="../css/bootstrap.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../css/dashboard.css">
-
-
 </head>
 
 <body>
 
     <div class="wrapper">
-        <!-- Sidebar Holder -->
-        <?php include './include/defaultNavbar.php';?>
+    <!-- Sidebar Holder -->
+    <?php include './include/defaultNavbar.php';?>
 
-        <!-- Page Content Holder -->
-        <div id="content">
-
-            <!-- topnavbar Holder -->
-            <?php include './include/topNavbar.php';?>
-
-
-
-            <div class="container">
-                <div class="datatable">
-                    <h2>Assign  Faculty / <?php echo $course_name; ?> / <?php echo $sub_name; ?> </h2>         
-                    <div class="line"></div>  
-
-
-                    <table class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Class Name</th>
-                                <th>Subject</th>                                            
-                            </tr>
-                        </thead>                    
-                        <tbody>  
-                            <tr>                           
-                                <td><?php echo $course_name; ?></td>
-                                <td><?php echo $sub_name; ?></td>
-                            </tr>
-                        </tbody> 
-                    </table>
-                </div> 
-            </div>
-
-            <div class="container">
-                <div class="datatable">
-                    <h2>Select Faculty</h2>         
-                  
+    <!-- Page Content Holder -->
+    <div id="content">
+    <!-- topnavbar Holder -->
+        <?php include './include/topNavbar.php';?>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Select Faculty</h2>                      
                     <div class="row">
                         <div class="col-12">
                             <form  action="./addSubjectTeacher.php" method="post">
 
                                 <div class="form-group">    
-                                    <input type="hidden" name="stnd_code" value="<?php echo($stnd_code); ?>">
-                                    <input type="hidden" name="subject_id" value="<?php echo($subject_id); ?>">
+                                <input type="hidden" name="stnd_code" value="<?php echo($classId); ?>">
+                                <input type="hidden" name="subject_id" value="<?php echo($subjectId); ?>">
                                 </div>
+                                <div class="form-group"> 
+                                <select name="facultyId" class="ui fluid search dropdown"  required="">
+                                    <option value=""> Choose Faculty </option>
 
-                                <div class="form-group">
-                                    <select name="facultyID" class="ui fluid search dropdown"  required="">
-                                        <option value=""> Choose Faculty </option>
-                                        <?php	while($row = $resultFaculty->fetch_array()){ ?>										
-
-                                        <option value="<?php echo escape($row['f_id']) ; ?>"> <?php echo escape($row['f_name']) ; ?> </option>
-
-                                        <?php } ?>
-                                    </select>
+                                    <?php  foreach ($resultFaculty as $key => $faculty) { ?>
+                                    <option value="<?php echo escape($faculty['f_id']) ; ?>">
+                                        <?php echo escape($faculty['f_name']) ; ?>                                        
+                                    </option>
+                                    
+                                    <?php } ?>
+                                </select>
                                 </div>        
                                 <div class="form-group">                                           
-                                    <button type="submit" name="addSubjectTeacher" value="addSubjectTeacher" class="btn btn-primary">Assign Faculty</button>
+                                <button type="submit" name="addSubjectTeacher" value="addSubjectTeacher" class="btn btn-primary">Assign Faculty</button>
                                 </div> 
-
                             </form>
                         </div>
-                    </div>                            
-                </div> 
+                    </div>
+                </div>                            
             </div> 
-
-        </div>
+        </div> 
+    </div>
     </div>
     
 

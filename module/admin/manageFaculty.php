@@ -7,7 +7,7 @@ $faculty = new Faculty();
 if(!$facultyData = $faculty->getAllFaculty()){
 
     Session::put('errorMsg', 'No record found!');
-
+    var_dump($facultyData);
 }
 
 ?>
@@ -32,40 +32,39 @@ if(!$facultyData = $faculty->getAllFaculty()){
             
             <div class="container">
                 <div class="card">
-                    <h2>Manage Faculty</h2>         
-                    <div class="line"></div>
-                     <table id="adminDashboard" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>S.no</th>    
-                                <th>Name</th>                  
-                                <th>Email</th>
-                                <th>PhoneNo</th>           
-                                <th>DOJ</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>                    
-                        <tbody>  
+                    <div class="card-body">
+                        <h3>Manage Faculty</h3>                      
+                        <a href="./addFaculty.php" class="btn-link">+Add Faculty</a>
+                         <?php echo (Session::exists('errorMsg')? Session::flash('errorMsg'): "" ) ?>
+                        <div class="line"></div>
 
-                          
-                             <?php  
-                                             
-                                 foreach ($facultyData as $key => $faculty) { ?>
-                                        
-                                    <tr>   
-                                        <td>1</td> 
-                        
-                                        <td><?php echo $faculty['f_name']; ?></td>         
-                                        <td><?php echo $faculty['f_email']; ?></td>
-                                        <td><?php echo $faculty['f_phoneNo']; ?></td>                        
-                                        <td><?php echo $faculty['f_doj']; ?></td> 
-                                        <td>Action</td>
-                                    </tr>
+                         <table id="adminDashboard" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>    
+                                    <th>Name</th>                  
+                                    <th>Email</th>
+                                    <th>PhoneNo</th>                                      
+                                </tr>
+                            </thead>                    
+                            <tbody>  
+                                <?php if ($facultyData) {
 
-                            <?php  }  ?>   
-                         
-                        </tbody> 
-                    </table> 
+                                $cnt = 1;         
+                                                           
+                                foreach ($facultyData as $key => $faculty) { ?>
+
+                                <tr>   
+                                    <td><?php echo $cnt ?> </td>
+                                    <td><a class="btn-link" href="edit-faculty.php?facultyId=<?php echo $faculty['f_id']; ?>"><?php echo $faculty['f_name']; ?></a></td>         
+                                    <td><?php echo $faculty['f_email']; ?></td>
+                                    <td><?php echo $faculty['f_phoneNo']; ?></td> 
+                                </tr>
+
+                                <?php  $cnt++; } } ?>                               
+                            </tbody> 
+                        </table>
+                    </div> 
                 </div> 
             </div>
         </div>

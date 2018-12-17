@@ -5,9 +5,7 @@ require_once '../core/init.php';
 
 $isUpdateStudentProfile = false;
 
-$login = new Login();   
-
-(!$login->isUserLogIn('admin'))? Redirect::to("http://" . $_SERVER['SERVER_NAME']) : "";
+Login::isUserLogIn('admin');
 
 
 $student = new Student();
@@ -116,104 +114,84 @@ if (Input::exists('post')) {
                 <div  class="row">
                     <div class="col-md-12">
                         <div class="card "> 
+                            <div class="card-body">    
+                                <h3><?php echo $s_fullname; ?></h3>                      
+                                <p>Update Student Profile</p>
+                                <div class="line"></div>  
+                                              
+                                <div class="row">
+                                    <div class="col-md-12 ">
+                                        <form  action="" method="post">                               
 
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item ">Student</li>
-                            <li class="breadcrumb-item"><a class="btn-link" href="./studentAccount.php?studentId=<?php echo $studentId;?>"><?php echo $s_fullname; ?></a></li>
-                            <li class="breadcrumb-item"> <a class="btn-link" href="./updateStudentSubject.php?studentId=<?php echo $studentId;?>">Course</a></li>
-                            <li class="breadcrumb-item"><span class="text-<?php echo ($isUpdateStudentProfile) ? 'success' : 'danger' ?>"><?php echo (Session::exists('errorMsg')?  Session::flash('errorMsg') : "") ?></span></li>
-                        </ol>
-                            
-                            <div class="line"></div>    
-                            <div class="row">
-                                <div class="col-md-12 ">
-                                    <form  action="" method="post">                               
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label" >Student Name</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="s_fullname" class="form-control" value="<?php echo($s_fullname);?>" required autofocus>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label" >Student Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="s_fullname" class="form-control" value="<?php echo($s_fullname);?>" required autofocus>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label">Father Name </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="s_fatherName" class="form-control "  value="<?php echo($s_fatherName);?>" required>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label">Father Name </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="s_fatherName" class="form-control "  value="<?php echo($s_fatherName);?>" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> Mother Name </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="s_motherName" class="form-control "  value="<?php echo($s_motherName);?>" required>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> Mother Name </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="s_motherName" class="form-control "  value="<?php echo($s_motherName);?>" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> Date of Birth </label>
-                                            <div class="col-sm-9">
-                                                <input type="date"  name="s_dob"   class="form-control " value="<?php echo($s_dob);?>" required>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> Date of Birth </label>
+                                                <div class="col-sm-9">
+                                                    <input type="date"  name="s_dob"   class="form-control " value="<?php echo($s_dob);?>" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"></label>
-                                            <div class="col-sm-9">
-                                                <label class="control control--radio">Male
-                                                    <input type="radio" name="s_sex" value="Male" <?php echo ($s_sex=='Male')? "checked": ""; ?> >
-                                                    <div class="control__indicator"></div>
-                                                </label>
-                                                <label class="control control--radio">Female
-                                                    <input type="radio" name="s_sex"  value="Female" <?php echo ($s_sex=='Female')? "checked": ""; ?>>
-                                                    <div class="control__indicator"></div>
-                                                </label>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"></label>
+                                                <div class="col-sm-9">
+                                                    <label class="control control--radio">Male
+                                                        <input type="radio" name="s_sex" value="Male" <?php echo ($s_sex=='Male')? "checked": ""; ?> >
+                                                        <div class="control__indicator"></div>
+                                                    </label>
+                                                    <label class="control control--radio">Female
+                                                        <input type="radio" name="s_sex"  value="Female" <?php echo ($s_sex=='Female')? "checked": ""; ?>>
+                                                        <div class="control__indicator"></div>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> Email Id</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="s_email" class="form-control "  value="<?php echo($s_email);?>" required>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> Email Id</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="s_email" class="form-control "  value="<?php echo($s_email);?>" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> Phone No</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="s_phoneNo" minlength="10" class="form-control "  value="<?php echo($s_phoneNo);?>" required>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> Phone No</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="s_phoneNo" minlength="10" class="form-control "  value="<?php echo($s_phoneNo);?>" required>
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> Address</label>
-                                            <div class="col-sm-9">
-                                                <textarea name="s_address" rows="3" class="form-control" required="">
-
-                                                    <?php echo($s_address);?>
-                                                </textarea>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> Address</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="s_address" rows="3" class="form-control" required="">
+                                                        <?php echo($s_address);?>
+                                                    </textarea>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-3 col-form-label"> </label>
+                                                <div class="col-sm-9">
+                                                    <input type="hidden" name="studentId" id="studentId" value="<?php echo $studentId;?>"> 
+                                                    <button type="submit" name="admission" onclick=" return confirmFormSubmit()" value="admission" class="btn btn-primary btn-md">Update Details </button>
+                                                </div>
+                                            </div>                              
 
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-3 col-form-label"> </label>
-                                            <div class="col-sm-9">
-                                                <input type="hidden" name="studentId" id="studentId" value="<?php echo $studentId;?>"> 
-                                                <button type="submit" name="admission" onclick=" return confirmFormSubmit()" value="admission" class="btn btn-primary btn-md">Save Details </button>
-                                            </div>
-                                        </div>                              
-
-                                    </form>
-                                </div>                            
-                            </div> 
+                                        </form>
+                                    </div>                            
+                                </div>
+                            </div>   
                         </div>      	
                     </div>
 
@@ -230,7 +208,7 @@ if (Input::exists('post')) {
 
         function confirmFormSubmit() {
 
-            return confirm('Are you sure you want to save this thing into the database?');
+            return confirm('Are you sure?');
 
         }
 

@@ -32,7 +32,11 @@
             <div class="container">
                 <div class="card">
 
-                    <ol class="breadcrumb">
+                    
+                        
+                    <div class="card-body">
+
+                         <ol class="breadcrumb">
                         <li class="breadcrumb-item active">Manage Course</li>  
                         <li class="breadcrumb-item " > <a href="./addCourse.php" class="btn-link"> + Add New Course</a></li>  
                     </ol>
@@ -40,9 +44,7 @@
                     
                    
                             
-                    <div class="line"></div>  
-                        
-                    <div class="card-body">
+                    <div class="line"></div> 
 
                     <table id="adminDashboard" class="table table-striped table-bordered">
                         <thead>
@@ -66,7 +68,7 @@
                             <tr>
                                 <td><?php echo escape($sno);?></td>
                                 <td><?php echo escape($standard['className']); ?></td> 	
-                                <td><a class="btn-link" href="./viewCourse.php?classId=<?php echo escape($standard['classId']); ?>">View Account</a></td>
+                                <td><a class="btn-link" href="./viewCourse.php?classId=<?php echo escape($standard['classId']); ?>">View subjects</a></td>
                             </tr>
 
                             <?php $sno++;   }

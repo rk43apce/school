@@ -43,54 +43,54 @@
             <div class="container">
 
                 <div class="card">
-                    
-                    <h3>Manage Students</h3>
-                            
-                    <div class="line"></div>  
+                    <div class="card-body">
+                        <h3>Manage Students</h3>
+                                
+                        <div class="line"></div>  
 
-                    <table id="adminDashboard" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>S.no</th>                               
-                                <th>Registration No</th>
-                                <th>Name</th>                  
-                                <th>Father name</th>
-                                <th>Email</th>                             
-                                <th>Admission on</th>                            
-                            </tr>
-                        </thead>                    
-                        <tbody>  
+                        <table id="adminDashboard" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>                               
+                                    <th>Registration No</th>
+                                    <th>Name</th>                  
+                                    <th>Father name</th>
+                                    <th>Email</th>                             
+                                    <th>Admission on</th>                            
+                                </tr>
+                            </thead>                    
+                            <tbody>  
 
-                        <?php
+                            <?php
 
-                        if ($studentData) {
+                            if ($studentData) {
 
-                            $sno = 1;
+                                $sno = 1;
 
-                            foreach ($studentData as $key => $student) { ?>
+                                foreach ($studentData as $key => $student) { ?>
 
-                            <tr>
-                                <td><?php echo escape($sno);?></td>
-                                <td><?php echo escape($student['s_registrationNo']); ?></td>  
-                                <td>
-                                    <a class="btn-link" href="./studentAccount.php?studentId=<?php echo escape($student['s_registrationNo']);?>"><?php echo escape($student['s_fullname']); ?></a>
-                                </td>  
-                                <td><?php echo escape($student['s_phoneNo']); ?></td>  
-                                <td><?php echo escape($student['s_email']); ?></td>   
-                                <td><?php echo escape($student['doj']); ?></td>                           
-                            </tr>
+                                <tr>
+                                    <td><?php echo escape($sno);?></td>
+                                    <td><?php echo escape($student['s_registrationNo']); ?></td>  
+                                    <td>
+                                        <a class="btn-link" href="./studentAccount.php?studentId=<?php echo escape($student['s_registrationNo']);?>"><?php echo escape($student['s_fullname']); ?></a>
+                                    </td>  
+                                    <td><?php echo escape($student['s_phoneNo']); ?></td>  
+                                    <td><?php echo escape($student['s_email']); ?></td>   
+                                    <td><?php echo escape($student['doj']); ?></td>                           
+                                </tr>
 
-                            <?php $sno++;   }
+                                <?php $sno++;   }
 
-                            } else{ ?>
+                                } else{ ?>
 
-                            <tr><td colspan="7" align="center"><?php echo Session::get('errorMsg');?></td></tr>
+                                <tr><td colspan="7" align="center"><?php echo Session::get('errorMsg');?></td></tr>
 
-                        <?php  }  ?>  
+                            <?php  }  ?>  
 
-                        </tbody> 
-                    </table> 
-
+                            </tbody> 
+                        </table> 
+                    </div>
                 </div> 
             </div>
         </div>

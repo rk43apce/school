@@ -30,52 +30,70 @@ if (!$studentData =  $student->getAllStudent()) {
             <!-- topnavbar Holder -->
            <?php include './include/topNavbar.php';?>
 
+
               
             <div class="container">
 
+			
+
                 <div class="card">
-                    
-                    <h3>Manage Students</h3>
-                            
-                    <div class="line"></div>  
+                    <div class="card-body">
+                        <h3>Manage Students</h3>
+                                
+                        <div class="line"></div>  
 
-                    <table id="adminDashboard" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>S.no</th>                               
-                                <th>Registration No</th>
-                                <th>Name</th>                  
-                                <th>Father name</th>
-                                <th>Email</th>                             
-                                <th>Admission on</th>                            
-                            </tr>
-                        </thead>                    
-                        <tbody>  
+                        <table id="adminDashboard" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>                               
+                                    <th>Registration No</th>
+                                    <th>Name</th>                  
+                                    <th>Father name</th>
+                                    <th>Email</th>                             
+                                    <th>Admission on</th>                            
+                                </tr>
+                            </thead>                    
+                            <tbody>  
 
-                        <?php
+                            <?php
 
-                            $sno = 1;
+                            	if ($studentData) {
+                            		# code...
+                            	
 
-                            foreach ($studentData as $key => $student) { ?>
+                                $sno = 1;
 
-                            <tr>
-                                <td><?php echo escape($sno);?></td>
-                                <td><?php echo escape($student['s_registrationNo']); ?></td>  
-                                <td>
-                                    <a class="btn-link" href="./studentAccount.php?studentId=<?php echo escape($student['s_registrationNo']);?>"><?php echo escape($student['s_fullname']); ?></a>
-                                </td>  
-                                <td><?php echo escape($student['s_phoneNo']); ?></td>  
-                                <td><?php echo escape($student['s_email']); ?></td>   
-                                <td><?php echo escape($student['doj']); ?></td>                           
-                            </tr>
+                                foreach ($studentData as $key => $student) { ?>
 
-                            <?php $sno++;   }
+                                <tr>
+                                    <td><?php echo escape($sno);?></td>
+                                    <td><?php echo escape($student['s_registrationNo']); ?></td>  
+                                    <td>
+                                        <a class="btn-link" href="./studentAccount.php?studentId=<?php echo escape($student['s_registrationNo']);?>"><?php echo escape($student['s_fullname']); ?></a>
+                                    </td>  
+                                    <td><?php echo escape($student['s_phoneNo']); ?></td>  
+                                    <td><?php echo escape($student['s_email']); ?></td>   
+                                    <td><?php echo escape($student['doj']); ?></td>                           
+                                </tr>
 
-                           ?>  
+                                <?php $sno++;   }
 
-                        </tbody> 
-                    </table> 
+                            } else {
 
+                            	?>	
+                            	<tr>
+                            		<td colspan="6" align="center"> No Record found! </td>
+                            	</tr>
+                            	
+
+                            	<?php
+                            	}
+
+                               ?>  
+
+                            </tbody> 
+                        </table> 
+                    </div>
                 </div> 
             </div>
         </div>
